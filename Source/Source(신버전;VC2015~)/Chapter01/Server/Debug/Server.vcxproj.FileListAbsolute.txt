@@ -1,0 +1,2 @@
+D:\KPU\NetworkProgramming\Source\Source(신버전;VC2015~)\Chapter01\Server\Debug\Server.exe
+D:\KPU\NetworkProgramming\Source\Source(신버전;VC2015~)\Chapter01\Server\Debug\Server.pdb

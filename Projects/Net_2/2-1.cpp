@@ -14,14 +14,18 @@ void err_quit(char* msg) {
 int main(int argc, char* argv[]) {
 	// 윈속 초기화
 	WSADATA	wsa;
-	if (WSAStartup(MAKEWORD(1, 1), &wsa) != 0)
+	//#define MAKEWORD(a, b)      ((WORD)(((BYTE)(((DWORD_PTR)(a)) & 0xff)) | ((WORD)((BYTE)(((DWORD_PTR)(b)) & 0xff))) << 8))
+	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
 		return 1;
 	MessageBox(NULL, (LPCSTR)"윈속 초기화 성공", (LPCSTR)	"알림", MB_OK);
 
-	// 윈속 버전
-	std::cout << "wVersion: " << wsa.wVersion << std::endl;
+	// 윈속 버전 2(하위 8비트).2(상위 8비트)
+	// WIN32 기반 => DWORD :4Byte(32-bit) / WORD는 2Byte(16-bit)
+	// LOBYTE : 가장 하위 1바이트를 말함
+	// HIBYTE : 가장 상위 1바이트를 말함
+	std::cout << "wVersion: " << (int)LOBYTE(wsa.wVersion) <<"."<<(int)HIBYTE(wsa.wVersion)<< std::endl;
 	// 윈속 라이브러리가 사용할 수 있는 가장 높은 버전
-	std::cout << "wHighVersion: " << wsa.wHighVersion << std::endl;
+	std::cout << "wHighVersion: " << (int)LOBYTE(wsa.wHighVersion) << "." << (int)HIBYTE(wsa.wHighVersion) << std::endl;
 	// 윈속 구현에 관련된 정보
 	// 윈속 DLL에서 소켓에 관련된 설명 문자열 카피
 	std::cout << "szDescription: " << wsa.szDescription << std::endl;

@@ -1,5 +1,6 @@
 #include<winsock2.h>
 #include<stdio.h>
+
 #define PRACTICE_NUMBER 4
 
 #if PRACTICE_NUMBER == 2
@@ -49,20 +50,36 @@ BOOL GetDomainName(IN_ADDR addr, char* name, int namelen) {
 #endif
 
 #if	PRACTICE_NUMBER == 4		// 연습문제 1(과제)
+union DATA {
+	WORD data;
+	struct {
+		BYTE hibyte;
+		BYTE lobyte;
+	};
+};
+
 BOOL IsLittleEndian() {
-	u_short x1 = 0x1234;
-	// 네트워크 바이트 정렬은 빅엔디안이므로 hton함수의 결과값과 원래의 값이 같다면 빅엔디안
-	if (htons(x1) == x1)
-		return FALSE;
-	// 그렇지 않다면 리틀엔디안
-	return TRUE;
+	//int x = 1;
+	//char* y = (char*)&x;
+
+	//for (int i = 0; i <= 48; ++i) {
+	//	printf("%c", *y + i);
+	//}
+	////printf("%c", *y + 48);
+	//if(*y + 48 == '1')
+	//	return TRUE;
+	//return FALSE;
+	DATA x;
+	x.data = 0x1234;
+	if (x.lobyte == 0x12) return TRUE;
+	return FALSE;
 }
 
 BOOL IsBigEndian() {
-	u_short x1 = 0x1234;
-	if (htons(x1) == x1)
-		return TRUE;
-	return FALSE;
+	DATA x;
+	x.data = 0x1234;
+	if (x.hibyte == 0x34) return TRUE;
+	return TRUE;
 }
 #endif
 

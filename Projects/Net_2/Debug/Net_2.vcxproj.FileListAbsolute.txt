@@ -1,2 +1,0 @@
-E:\Git\20-2-NetworkProgramming\Projects\Net_2\Debug\Net_2.exe
-E:\Git\20-2-NetworkProgramming\Projects\Net_2\Debug\Net_2.pdb

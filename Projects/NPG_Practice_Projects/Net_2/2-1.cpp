@@ -17,13 +17,11 @@ int main(int argc, char* argv[]) {
 	//#define MAKEWORD(a, b)      ((WORD)(((BYTE)(((DWORD_PTR)(a)) & 0xff)) | ((WORD)((BYTE)(((DWORD_PTR)(b)) & 0xff))) << 8))
 	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
 		return 1;
-	MessageBox(NULL, (LPCSTR)"윈속 초기화 성공", (LPCSTR)	"알림", MB_OK);
-
 	// 윈속 버전 2(하위 8비트).2(상위 8비트)
-	// WIN32 기반 => DWORD :4Byte(32-bit) / WORD는 2Byte(16-bit)
-	// LOBYTE : 가장 하위 1바이트를 말함
-	// HIBYTE : 가장 상위 1바이트를 말함
-	std::cout << "wVersion: " << (int)LOBYTE(wsa.wVersion) <<"."<<(int)HIBYTE(wsa.wVersion)<< std::endl;
+// WIN32 기반 => DWORD :4Byte(32-bit) / WORD는 2Byte(16-bit)
+// LOBYTE : 가장 하위 1바이트(8bit)
+// HIBYTE : 가장 상위 1바이트(8bit)
+	std::cout << "wVersion: " << (int)LOBYTE(wsa.wVersion) << "." << (int)HIBYTE(wsa.wVersion) << std::endl;
 	// 윈속 라이브러리가 사용할 수 있는 가장 높은 버전
 	std::cout << "wHighVersion: " << (int)LOBYTE(wsa.wHighVersion) << "." << (int)HIBYTE(wsa.wHighVersion) << std::endl;
 	// 윈속 구현에 관련된 정보
@@ -32,13 +30,16 @@ int main(int argc, char* argv[]) {
 	// 시스템의 각종 상태를 알 수 있도록 해줌
 	std::cout << "szSystemStatus: " << wsa.szSystemStatus << std::endl;
 
-	// socket()
-	SOCKET tcp_sock = socket(AF_INET, SOCK_STREAM, 0);
-	if (tcp_sock == INVALID_SOCKET) err_quit((char*)"socket()");
-	MessageBox(NULL, (LPCSTR)"소켓 생성 성공", (LPCSTR)"알림", MB_OK);
+	MessageBox(NULL, (LPCSTR)"윈속 초기화 성공", (LPCSTR)	"알림", MB_OK);
 
-	// closesocket()
-	closesocket(tcp_sock);
+
+	//// socket()
+	//SOCKET tcp_sock = socket(AF_INET, SOCK_STREAM, 0);
+	//if (tcp_sock == INVALID_SOCKET) err_quit((char*)"socket()");
+	//MessageBox(NULL, (LPCSTR)"소켓 생성 성공", (LPCSTR)"알림", MB_OK);
+
+	//// closesocket()
+	//closesocket(tcp_sock);
 
 
 	// 윈속 종료

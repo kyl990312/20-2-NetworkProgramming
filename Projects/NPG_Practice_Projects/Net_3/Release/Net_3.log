@@ -1,10 +1,11 @@
 ﻿  3-1.cpp
-E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(92,17): warning C4996: 'gethostbyname': Use getaddrinfo() or GetAddrInfoW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(99,38): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(106,17): warning C4996: 'gethostbyaddr': Use getnameinfo() or GetNameInfoW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(117,38): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(122,44): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(126,19): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(127,48): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(139,2): warning C4996: 'WSAStringToAddressA': Use WSAStringToAddressW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(148,2): warning C4996: 'WSAAddressToStringA': Use WSAAddressToStringW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
   코드를 생성하고 있습니다.
-  2 of 6 functions (33.3%) were compiled, the rest were copied from previous compilation.
+  4 of 4 functions (100.0%) were compiled.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.

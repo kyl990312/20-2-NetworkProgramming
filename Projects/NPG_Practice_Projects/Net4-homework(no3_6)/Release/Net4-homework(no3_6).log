@@ -1,0 +1,13 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(467,5): warning MSB8028: 중간 디렉터리(Release\)에 다른 프로젝트(Net4-homework(no3_6).vcxproj)에서 공유하는 파일이 포함되어 있습니다.  이로 인해 잘못된 정리 및 다시 빌드 동작이 수행될 수 있습니다.
+  Net4_homework(3-6).cpp
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net4-homework(no3_6)\Net4_homework(3-6).cpp(19,17): warning C4996: 'gethostbyname': Use getaddrinfo() or GetAddrInfoW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net4-homework(no3_6)\Net4_homework(3-6).cpp(31,38): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net4-homework(no3_6)\Net4_homework(3-6).cpp(38,16): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net4-homework(no3_6)\Net4_homework(3-6).cpp(39,17): warning C4996: 'gethostbyaddr': Use getnameinfo() or GetNameInfoW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net4-homework(no3_6)\Net4_homework(3-6).cpp(50,38): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  코드를 생성하고 있습니다.
+  2 of 7 functions (28.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  Net4-homework(no3_6).vcxproj -> E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Release\Net4-homework_3-6.exe

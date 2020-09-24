@@ -3,7 +3,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-#define PRACTICE_NUMBER 5
+#define PRACTICE_NUMBER 2
 
 #if PRACTICE_NUMBER == 2
 #include <ws2tcpip.h>
@@ -80,42 +80,8 @@ BOOL IsLittleEndian() {
 BOOL IsBigEndian() {
 	DATA x;
 	x.data = 0x1234;
-	if (x.hibyte == 0x34) return TRUE;
-	return TRUE;
-}
-#endif
-
-#if PRACTICE_NUMBER == 5
-void DataFromDomain(char* name) {
-	printf("%s의 호스트 정보\n",name);
-	// 도메인으로부터 호스트 정보를 받아온다.
-	HOSTENT* ptr = gethostbyname(name);
-	for (int i = 0; ptr->h_aliases[i] != NULL; ++i) {
-		printf("h_aliases[%d]: %s\n", i, (LPCTSTR)ptr->h_aliases[i]);
-	}
-	for (int i = 0; ptr->h_addr_list[i] != NULL; ++i) {
-		IN_ADDR addr;
-		memcpy(&addr, ptr->h_addr_list[i], ptr->h_length);
-		printf("h_addr_list[%d]: %s\n", i, inet_ntoa(addr));
-	}
-	printf("\n");
-}
-
-void DataFromIP(char* name){
-	//IN_ADDR addr = inet_addr(name);
-	HOSTENT* ptr = gethostbyaddr(name, 16, AF_INET);
-	if (ptr == NULL) {
-		printf("잘못된 주소");
-		return;
-	}
-	for (int i = 0; ptr->h_aliases[i] != NULL; ++i) {
-		printf("h_aliases[%d]: %s\n", i, (LPCTSTR)ptr->h_aliases[i]);
-	}
-	for (int i = 0; ptr->h_addr_list[i] != NULL; ++i) {
-		IN_ADDR addr;
-		memcpy(&addr, ptr->h_addr_list[i], ptr->h_length);
-		printf("h_addr_list[%d]: %s\n", i, inet_ntoa(addr));
-	}
+	if (x.hibyte == 0x12) return TRUE;
+	return FALSE;
 }
 #endif
 
@@ -204,27 +170,10 @@ int main(int argc, char* argv[]) {
 	if (IsLittleEndian()) {
 		printf("LittleEndian\n");
 	}
-	else if (IsBigEndian()) {
+	if (IsBigEndian()) {
 		printf("BigEndian\n");
 	}
 #endif
-
-#if PRACTICE_NUMBER == 5
-	if (argc <= 1) {
-		printf("주소가 입력되지 않았습니다.\n");
-		return 0 ;
-	}
-
-	for (int i = 1; i < argc; ++i) {
-		char* name = argv[i];
-		if (isalpha(name[0]))
-			DataFromDomain(name);
-		else
-			DataFromIP(name);
-	}
-	
-#endif
-
 	WSACleanup();
 	return 0;
 }

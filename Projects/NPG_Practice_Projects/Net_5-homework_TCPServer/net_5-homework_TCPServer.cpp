@@ -3,9 +3,13 @@
 #include<stdlib.h>
 #include<stdio.h>
 
-
 #define SERVERPORT 9000
 #define BUFSIZE 512
+
+// cd E:\Git\20-2-NetworkProgramming\Projects\release_5\client
+// Net_5-homework_TCPClient test_client.txt
+// Net_5-homework_TCPClient suri.jpg
+// Net_5-homework_TCPClient katana_dance.mp4
 
 // 소켓 함수 오류 출력 후 종료
 void err_quit(char* msg) {
@@ -35,7 +39,7 @@ void err_display(char* msg) {
 int recvn(SOCKET s, char* buf, int len, int flags) {
 	int received;
 	char* ptr = buf;
-	int left = len;		// 데이터 크기
+	int left = len;
 
 	while (left > 0) {
 		received = recv(s, ptr, left, flags);
@@ -48,25 +52,10 @@ int recvn(SOCKET s, char* buf, int len, int flags) {
 		left -= received;
 		// 읽어온 데이터 크기만큼 버퍼의 포인터를 이동시킨다.
 		ptr += received;
-		printf("[수신률] %d", ((1-(float)(left) / (float)len)) * 100);
 	}
 
 	// 성공시 받은 바이트 수 / 0(종료)을 리턴한다.
 	return (len - left);
-}
-
-void SaveFile(char* data) {
-	FILE* fp = fopen("homeworkTest_5_server.txt", "w");
-	if (fp == NULL) {
-		printf("파일을 열 수 없습니다.\n");
-		return;
-	}
-	int len = strlen(data);
-	for (int i = 0; i < len; ++i) {
-		fputc(data[i],fp);
-	}
-	fclose(fp);
-	return;
 }
 
 int main(int argc, char* argv[])
@@ -102,6 +91,15 @@ int main(int argc, char* argv[])
 	char buf[BUFSIZE + 1];
 	int len;
 
+	// 저장할 파일의 데이터를 담을 변수
+	char fileName[50];
+	int nameLen;
+	int dataSize;
+	char* mode = (char*)"wb";	
+
+	FILE* fp = fopen(fileName, "a+b");;
+	int rest;
+
 	while (1) {
 		// accept()
 		addrlen = sizeof(clientaddr);
@@ -113,6 +111,36 @@ int main(int argc, char* argv[])
 
 		// 접속한 클라이언트 정보 출력
 		printf("\n[TCP 서버] 클라이언트 접속: IP 주소 = %s, 포트번호 = %d\n", inet_ntoa(clientaddr.sin_addr), ntohs(clientaddr.sin_port));
+
+		// 파일 이름의 길이를 받는다
+		retval = recvn(client_sock, (char*)&nameLen, sizeof(int), 0);
+		if (retval == SOCKET_ERROR) {
+			err_display((char*)"recv()");
+			break;
+		}
+
+		printf("파일의 이름 길이: %d\n", nameLen);
+		// 파일 이름을 받는다
+		retval = recvn(client_sock, fileName, nameLen, 0);
+		if (retval == SOCKET_ERROR) {
+			err_display((char*)"recv()");
+			break;
+		}
+		// 쓰레기값 제거
+		for (int i = nameLen; i < 50; ++i)
+			fileName[nameLen] = '\0';
+		printf("파일의 이름: %\s\n", fileName);
+
+
+		// 파일의 전체 크기를 받는다.
+		int dataSize;
+		retval = recvn(client_sock, (char*)&dataSize, sizeof(int), 0);
+		if (retval == SOCKET_ERROR) {
+			err_display((char*)"recv()");
+			break;
+		}
+		printf("파일의 크기: %d\n", dataSize);
+		rest = dataSize;
 
 		// 클라이언트와 데이터 통신
 		while (1) {
@@ -134,10 +162,21 @@ int main(int argc, char* argv[])
 			else if (retval == 0)
 				break;
 
-			// 받은 데이터 출력
-			buf[retval] = '\0';
-			printf("[TCP/%s :%d] %s\n", inet_ntoa(clientaddr.sin_addr), ntohs(clientaddr.sin_port), buf);
-			SaveFile(buf);
+			// 받은 데이터 저장
+			if (fp == NULL) {
+				fclose(fp);
+				fp = fopen(fileName, "wb");
+				fwrite(buf, 1, len, fp);
+				fclose(fp);
+				fp = fopen(fileName, "a+b");
+			}
+			else {
+				fwrite(buf, 1, len, fp);
+			}
+			rest -= len;
+			if (rest == 0)
+				break;
+			printf("[전송률] %d / %d\n", rest,dataSize );
 		}
 
 		// closesocekt()
@@ -147,6 +186,7 @@ int main(int argc, char* argv[])
 
 	// closesocket()
 	closesocket(listen_sock);
+	fclose(fp);
 
 	// 윈속 종료
 	WSACleanup();

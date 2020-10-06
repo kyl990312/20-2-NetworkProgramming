@@ -1,9 +1,9 @@
 ﻿  net_5-homework_TCPClient.cpp
-E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_5-homework_TCPClient\net_5-homework_TCPClient.cpp(55,31): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_5-homework_TCPClient\net_5-homework_TCPClient.cpp(78,13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_5-homework_TCPClient\net_5-homework_TCPClient.cpp(55,31): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_5-homework_TCPClient\net_5-homework_TCPClient.cpp(78,13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   코드를 생성하고 있습니다.
-  1 of 6 functions (16.7%) were compiled, the rest were copied from previous compilation.
+  6 of 6 functions (100.0%) were compiled.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
-  Net_5-homework_TCPClient.vcxproj -> E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Release\Net_5-homework_TCPClient.exe
+  Net_5-homework_TCPClient.vcxproj -> E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Release\Net_5-homework_TCPClient.exe

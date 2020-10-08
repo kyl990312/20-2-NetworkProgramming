@@ -76,12 +76,12 @@ int main(int agrc, char* argv[])
 	// 파일을 읽어온다.
 	int dataSize; 
 	FILE* in = fopen(argv[1],"rb");
-	fseek(in, 0, SEEK_END);
-	dataSize = ftell(in);
-	fseek(in, 0, SEEK_SET);		
+	fseek(in, 0, SEEK_END);				// 파일의 끝으로 포인터를 옮긴다
+	dataSize = ftell(in);				// 파일의 끝의 위치를 통해 파일의 크기를 읽어온다
+	fseek(in, 0, SEEK_SET);				// 파일의 처음어로 포인터를 옮긴다
 
 	// 파일의 전체 크기를 보낸다.
-	retval = send(sock, (char*)&dataSize, sizeof(int), 0);
+	retval = send(sock, (char*)&dataSize, sizeof(int), 0);	
 	if (retval == SOCKET_ERROR) {
 		err_display((char*)"send()");
 	}
@@ -90,36 +90,37 @@ int main(int agrc, char* argv[])
 	char buf[BUFSIZE];
 	int len;
 
-	// 남은 바이트 
+	// 남은 전송데이터의 크기
 	int rest = dataSize;
 
 	// 서버와 데이터 통신
 	while (1) {
 		// 보낼 데이터 사이즈를 구한다.
-		if (rest > BUFSIZE)
+		if (rest > BUFSIZE)	
 			len = BUFSIZE;
 		else if (rest == 0)
 			break;
 		else
 			len = rest;
 
+		// 앞으로 보내야할 위치 : dataSize - rest
 		fseek(in, dataSize - rest, SEEK_SET);
 		fread(buf, 1, len, in);
 
-		// 데이터 보내기(고정길이)
+		// 데이터 보내기 전송 데이터 크기
 		retval = send(sock, (char*)&len, sizeof(int), 0);
 		if (retval == SOCKET_ERROR) {
 			err_display((char*)"send()");
 			break;
 		}
 
-		// 데이터 보내기(가변길이)
+		// 데이터 보내기 전송 데이터
 		retval = send(sock, buf, len, 0);
 		if (retval == SOCKET_ERROR) {
 			err_display((char*)"send()");
 			break;
 		}
-		rest -= len;
+		rest -= len;		// 보낸 데이터만큼 남은 크기에서 빼준다
 
 		printf("[TCP 클라이언트] %d + %d바이트를 보냈습니다.\n",sizeof(int), retval);
 		printf("[TCP 클라이언트] %d바이트가 남았습니다. \n",rest);

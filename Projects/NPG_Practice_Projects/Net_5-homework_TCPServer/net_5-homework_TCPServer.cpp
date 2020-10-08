@@ -37,6 +37,8 @@ void err_display(char* msg) {
 }
 
 // 사용자 정의 데이터 수신 함수
+// recv()는 len으로 지정한 크기보다 적은 데이터가 응용 프로그램 버퍼에 복사될 수 있다.
+// 자신이 받을 데이터의 크기를 미리 알고 있다면 그만큼 받을 때까지 recv()를 계속 호출해야함
 int recvn(SOCKET s, char* buf, int len, int flags) {
 	int received;
 	char* ptr = buf;
@@ -89,17 +91,17 @@ int main(int argc, char* argv[])
 	SOCKET client_sock;
 	SOCKADDR_IN clientaddr;
 	int addrlen;
-	char buf[BUFSIZE + 1];
-	int len;
+	char buf[BUFSIZE + 1];			// 데이터를 BUFSIZE 만큼 전송 받은 후 마지막에 '\0'추가를 위해 +1
+	int len;						
 
 	// 저장할 파일의 데이터를 담을 변수
-	char fileName[50];
-	int nameLen;
-	int dataSize;
+	char fileName[50];		// 파일 이름
+	int nameLen;			// 파일 이름 길이
+	int dataSize;			// 파일 전체 크기
 	char* mode = (char*)"wb";	
 
 	FILE* fp;
-	int rest;
+	int left;			// 전체 파일의 크기중 앞으로 받아야 할 크기
 
 	while (1) {
 		// accept()
@@ -114,7 +116,7 @@ int main(int argc, char* argv[])
 		printf("\n[TCP 서버] 클라이언트 접속: IP 주소 = %s, 포트번호 = %d\n", inet_ntoa(clientaddr.sin_addr), ntohs(clientaddr.sin_port));
 
 		// 파일 이름의 길이를 받는다
-		retval = recv(client_sock, (char*)&nameLen, sizeof(int), 0);
+		retval = recvn(client_sock, (char*)&nameLen, sizeof(int), 0);
 		if (retval == SOCKET_ERROR) {
 			err_display((char*)"recv()");
 			break;
@@ -122,7 +124,7 @@ int main(int argc, char* argv[])
 
 		printf("파일의 이름 길이: %d\n", nameLen);
 		// 파일 이름을 받는다
-		retval = recv(client_sock, fileName, nameLen, 0);
+		retval = recvn(client_sock, fileName, nameLen, 0);
 		if (retval == SOCKET_ERROR) {
 			err_display((char*)"recv()");
 			break;
@@ -135,19 +137,19 @@ int main(int argc, char* argv[])
 
 		// 파일의 전체 크기를 받는다.
 		int dataSize;
-		retval = recv(client_sock, (char*)&dataSize, sizeof(int), 0);
+		retval = recvn(client_sock, (char*)&dataSize, sizeof(int), 0);
 		if (retval == SOCKET_ERROR) {
 			err_display((char*)"recv()");
 			break;
 		}
 		printf("파일의 크기: %d\n", dataSize);
-		rest = dataSize;
+		left = dataSize;
 
 		fp = fopen(fileName, "a+b");
 		// 클라이언트와 데이터 통신
 		while (1) {
 			// 데이터 받기(고정길이)
-			retval = recv(client_sock, (char*)&len, sizeof(int), 0);
+			retval = recvn(client_sock, (char*)&len, sizeof(int), 0);
 			if (retval == SOCKET_ERROR) {
 				err_display((char*)"recv()");
 				break;
@@ -156,7 +158,7 @@ int main(int argc, char* argv[])
 				break;
 
 			// 데이터 받기(가변길이)
-			retval = recv(client_sock, buf, len, 0);
+			retval = recvn(client_sock, buf, len, 0);
 			if (retval == SOCKET_ERROR) {
 				err_display((char*)"recv()");
 				break;
@@ -166,20 +168,22 @@ int main(int argc, char* argv[])
 
 			// 받은 데이터 저장
 			if (fp == NULL) {
+				// 이어서 저장할 파일이 없는경우 wb로 데이터를 저장할 파일을 새로 생성해야 한다.
 				printf("새로운 파일을 생성합니다.\n");
 				fp = fopen(fileName, "wb");
 				fwrite(buf, 1, len, fp);
 				fclose(fp);
 				printf("파일을 저장했습니다!\n");
+				// 새로 생성한 파일에 뒤이어 올 데이터들을 이어서 저장할 것이다.
 				fp = fopen(fileName, "a+b");
 			}
 			else {
 				fwrite(buf, 1, len, fp);
 				printf("파일을 이어 저장했습니다\n");
 			}
-			rest -= len;
+			left -= len;
 
-			printf("[전송률] %d / %d\n", rest,dataSize );
+			printf("[전송률] %d%% \n", (int)((1.0f - (float)left / (float)dataSize) * 100) );
 		}
 
 		// closesocekt()

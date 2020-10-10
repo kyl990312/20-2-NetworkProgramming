@@ -1,0 +1,9 @@
+﻿  6-4_multithreadTCPServer.cpp
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_6-4_MutithreadTCPServer\6-4_multithreadTCPServer.cpp(58,30): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_6-4_MutithreadTCPServer\6-4_multithreadTCPServer.cpp(68,86): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_6-4_MutithreadTCPServer\6-4_multithreadTCPServer.cpp(115,88): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  코드를 생성하고 있습니다.
+  Previous IPDB not found, fall back to full compilation.
+  All 7 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  코드를 생성했습니다.
+  Net_6-4_MutithreadTCPServer.vcxproj -> E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Release\Net_6-4_MutithreadTCPServer.exe

@@ -61,6 +61,85 @@ int recvn(SOCKET s, char* buf, int len, int flags) {
 	return (len - left);
 }
 
+void MakeNewFile(SOCKET client_sock, char fileName[50])
+{
+	int retval;
+	int nameLen;
+
+	// 파일 이름의 길이를 받는다
+	retval = recvn(client_sock, (char*)&nameLen, sizeof(int), 0);
+	if (retval == SOCKET_ERROR) {
+		err_display((char*)"recv()");
+		return ;
+	}
+
+	printf("파일의 이름 길이: %d\n", nameLen);
+	// 파일 이름을 받는다
+	retval = recvn(client_sock, fileName, nameLen, 0);
+	if (retval == SOCKET_ERROR) {
+		err_display((char*)"recv()");
+		return ;
+	}
+	// 쓰레기값 제거
+	for (int i = nameLen; i < 50; ++i)
+		fileName[nameLen] = '\0';
+	printf("파일의 이름: %\s\n", fileName);
+
+	FILE* fp = fopen(fileName, "wb");
+
+	fclose(fp);
+}
+
+void SaveData(SOCKET client_sock, char fileName[50]) {
+	int retval;
+	int dataSize;
+	int len;
+	int left;
+
+	FILE* fp = fopen(fileName, "a+b");
+	char buf[BUFSIZE + 1];
+
+	// 파일의 전체 크기를 받는다.
+	retval = recvn(client_sock, (char*)&dataSize, sizeof(int), 0);
+	if (retval == SOCKET_ERROR) {
+		err_display((char*)"recv()");
+		return;
+	}
+	printf("파일의 크기: %d\n", dataSize);
+	left = dataSize;
+
+	fp = fopen(fileName, "a+b");
+	// 클라이언트와 데이터 통신
+	while (1) {
+		// 데이터 받기(고정길이)
+		retval = recvn(client_sock, (char*)&len, sizeof(int), 0);
+		if (retval == SOCKET_ERROR) {
+			err_display((char*)"recv()");
+			break;
+		}
+		else if (retval == 0)
+			break;
+
+		// 데이터 받기(가변길이)
+		retval = recvn(client_sock, buf, len, 0);
+		if (retval == SOCKET_ERROR) {
+			err_display((char*)"recv()");
+			break;
+		}
+		else if (retval == 0)
+			break;
+
+		// 받은 데이터 저장
+		fwrite(buf, 1, len, fp);
+		printf("파일을 이어 저장했습니다\n");
+		
+		left -= len;
+
+		printf("[전송률] %d%% \n", (int)((1.0f - (float)left / (float)dataSize) * 100));
+	}
+	fclose(fp);
+}
+
 int main(int argc, char* argv[])
 {
 	int retval;
@@ -91,17 +170,10 @@ int main(int argc, char* argv[])
 	SOCKET client_sock;
 	SOCKADDR_IN clientaddr;
 	int addrlen;
-	char buf[BUFSIZE + 1];			// 데이터를 BUFSIZE 만큼 전송 받은 후 마지막에 '\0'추가를 위해 +1
-	int len;						
+		
 
 	// 저장할 파일의 데이터를 담을 변수
 	char fileName[50];		// 파일 이름
-	int nameLen;			// 파일 이름 길이
-	int dataSize;			// 파일 전체 크기
-	char* mode = (char*)"wb";	
-
-	FILE* fp;
-	int left;			// 전체 파일의 크기중 앞으로 받아야 할 크기
 
 	while (1) {
 		// accept()
@@ -115,76 +187,11 @@ int main(int argc, char* argv[])
 		// 접속한 클라이언트 정보 출력
 		printf("\n[TCP 서버] 클라이언트 접속: IP 주소 = %s, 포트번호 = %d\n", inet_ntoa(clientaddr.sin_addr), ntohs(clientaddr.sin_port));
 
-		// 파일 이름의 길이를 받는다
-		retval = recvn(client_sock, (char*)&nameLen, sizeof(int), 0);
-		if (retval == SOCKET_ERROR) {
-			err_display((char*)"recv()");
-			break;
-		}
+		// 새로운 파일을 생성한다.
+		MakeNewFile(client_sock,fileName);
 
-		printf("파일의 이름 길이: %d\n", nameLen);
-		// 파일 이름을 받는다
-		retval = recvn(client_sock, fileName, nameLen, 0);
-		if (retval == SOCKET_ERROR) {
-			err_display((char*)"recv()");
-			break;
-		}
-		// 쓰레기값 제거
-		for (int i = nameLen; i < 50; ++i)
-			fileName[nameLen] = '\0';
-		printf("파일의 이름: %\s\n", fileName);
-
-
-		// 파일의 전체 크기를 받는다.
-		int dataSize;
-		retval = recvn(client_sock, (char*)&dataSize, sizeof(int), 0);
-		if (retval == SOCKET_ERROR) {
-			err_display((char*)"recv()");
-			break;
-		}
-		printf("파일의 크기: %d\n", dataSize);
-		left = dataSize;
-
-		fp = fopen(fileName, "a+b");
-		// 클라이언트와 데이터 통신
-		while (1) {
-			// 데이터 받기(고정길이)
-			retval = recvn(client_sock, (char*)&len, sizeof(int), 0);
-			if (retval == SOCKET_ERROR) {
-				err_display((char*)"recv()");
-				break;
-			}
-			else if (retval == 0)
-				break;
-
-			// 데이터 받기(가변길이)
-			retval = recvn(client_sock, buf, len, 0);
-			if (retval == SOCKET_ERROR) {
-				err_display((char*)"recv()");
-				break;
-			}
-			else if (retval == 0)
-				break;
-
-			// 받은 데이터 저장
-			if (fp == NULL) {
-				// 이어서 저장할 파일이 없는경우 wb로 데이터를 저장할 파일을 새로 생성해야 한다.
-				printf("새로운 파일을 생성합니다.\n");
-				fp = fopen(fileName, "wb");
-				fwrite(buf, 1, len, fp);
-				fclose(fp);
-				printf("파일을 저장했습니다!\n");
-				// 새로 생성한 파일에 뒤이어 올 데이터들을 이어서 저장할 것이다.
-				fp = fopen(fileName, "a+b");
-			}
-			else {
-				fwrite(buf, 1, len, fp);
-				printf("파일을 이어 저장했습니다\n");
-			}
-			left -= len;
-
-			printf("[전송률] %d%% \n", (int)((1.0f - (float)left / (float)dataSize) * 100) );
-		}
+		// 전송되는 데이터를 파일에 저장한다.
+		SaveData(client_sock, fileName);
 
 		// closesocekt()
 		closesocket(client_sock);
@@ -193,7 +200,6 @@ int main(int argc, char* argv[])
 
 	// closesocket()
 	closesocket(listen_sock);
-	if(fp!=NULL) fclose(fp);
 
 	// 윈속 종료
 	WSACleanup();

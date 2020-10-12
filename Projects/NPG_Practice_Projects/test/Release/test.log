@@ -1,9 +1,10 @@
 ﻿  test.cpp
-E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\test\test.cpp(9,13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\test\test.cpp(27,13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\test\test.cpp(5,16): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\test\test.cpp(5,18): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\test\test.cpp(12,15): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   코드를 생성하고 있습니다.
-  3 of 6 functions (50.0%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
+  1 of 5 functions (20.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   test.vcxproj -> E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Release\test.exe

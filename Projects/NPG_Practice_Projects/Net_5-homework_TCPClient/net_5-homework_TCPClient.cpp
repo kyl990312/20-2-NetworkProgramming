@@ -35,6 +35,18 @@ void err_display(char* msg) {
 	LocalFree(lpMsgBuf);
 }
 
+void DrawProgressBar(char fileName[50], int total, int val) {
+	int drawVal = ((float)val / (float)total) * 20;			// '■' 개수
+
+	// 출력
+	printf("[ %s ] ", fileName);
+	for (int j = 0; j < drawVal; j++)
+		printf("■");
+	for (int j = 0; j < 20 - drawVal; ++j)
+		printf("□");
+	printf("\t%d%%\r", (int)(((float)val / (float)total) * 100));
+}
+
 int main(int agrc, char* argv[])
 {
 	int retval;
@@ -121,9 +133,8 @@ int main(int agrc, char* argv[])
 			break;
 		}
 		rest -= len;		// 보낸 데이터만큼 남은 크기에서 빼준다
-
-		printf("[TCP 클라이언트] %d + %d바이트를 보냈습니다.\n",sizeof(int), retval);
-		printf("[TCP 클라이언트] %d바이트가 남았습니다. \n",rest);
+		
+		DrawProgressBar(argv[1], dataSize, dataSize - rest);
 
 	}
 

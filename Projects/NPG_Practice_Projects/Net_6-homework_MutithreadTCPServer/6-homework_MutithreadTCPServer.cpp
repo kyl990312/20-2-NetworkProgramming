@@ -62,7 +62,6 @@ int recvn(SOCKET s, char* buf, int len, int flags) {
 	return (len - left);
 }
 
-
 void MoveCursor(int y) {
 	COORD pos = { 0,y }; //x, y 좌표 설정
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos); //커서 설정
@@ -143,13 +142,13 @@ void SaveFile(SOCKET client_sock, char fileName[50]) {
 		left -= len;
 
 		// 수신률 출력
-		MoveCursor(client_id);
+		MoveCursor(client_id-1);		// 커서 위치 조정
 		printf("    %d%%\r", (int)((1-(float)left / (float)fileSize) * 100));
 	}
 	fclose(fp);
 }
 
-// 클라이언트와 데이터 통신
+// 클라이언트와 데이터 통신 쓰레드 함수
 DWORD WINAPI ProcessClient(LPVOID arg) {
 	SOCKET client_sock = (SOCKET)arg;
 	SOCKADDR_IN clientaddr;
@@ -157,12 +156,6 @@ DWORD WINAPI ProcessClient(LPVOID arg) {
 
 	// 저장할 파일의 데이터를 담을 변수
 	char fileName[50];		// 파일 이름
-
-	// 클라이언트 정보 얻기
-	addrlen = sizeof(clientaddr);
-	// 스레드 함수에 소켓만 전달한 경우에는 별도의 주소정보가 없으므로 소켓을 통해 주소 정보를 얻는 기능이 필요
-	// 소켓 데이터 구조체에 저장된 원격 IP 주소와 원격 포트 번호 리턴
-	getpeername(client_sock, (SOCKADDR*)&clientaddr, &addrlen);
 
 	// 새로운 파일을 생성한다.
 	MakeNewFile(client_sock, fileName);
@@ -172,6 +165,7 @@ DWORD WINAPI ProcessClient(LPVOID arg) {
 
 	// closesocekt()
 	closesocket(client_sock);
+
 
 	return 0;
 }
@@ -223,8 +217,9 @@ int main(int argc, char* argv[])
 			err_display((char*)"accept()");
 			break;
 		}
+
 		// 스레드 생성
-		clientCnt++;
+		clientCnt++;				// 현재 스레드의 개수를 담고있다.
 		hThread = CreateThread(NULL, 0, ProcessClient, (LPVOID)client_sock, 0, NULL);
 		if (hThread == NULL) { closesocket(client_sock); }
 		else { CloseHandle(hThread); }

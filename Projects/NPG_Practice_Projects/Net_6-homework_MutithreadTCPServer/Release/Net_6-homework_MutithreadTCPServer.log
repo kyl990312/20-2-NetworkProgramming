@@ -1,6 +1,12 @@
-﻿  코드를 생성하고 있습니다.
-  4 of 11 functions (36.4%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+﻿  6-homework_MutithreadTCPServer.cpp
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_6-homework_MutithreadTCPServer\6-homework_MutithreadTCPServer.cpp(66,18): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_6-homework_MutithreadTCPServer\6-homework_MutithreadTCPServer.cpp(93,13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_6-homework_MutithreadTCPServer\6-homework_MutithreadTCPServer.cpp(105,13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_6-homework_MutithreadTCPServer\6-homework_MutithreadTCPServer.cpp(154,14): warning C4101: 'clientaddr' :참조되지 않은 지역 변수입니다.
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_6-homework_MutithreadTCPServer\6-homework_MutithreadTCPServer.cpp(155,6): warning C4101: 'addrlen' :참조되지 않은 지역 변수입니다.
+  코드를 생성하고 있습니다.
+  1 of 11 functions ( 9.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   Net_6-homework_MutithreadTCPServer.vcxproj -> E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Release\Net_6-homework_MutithreadTCPServer.exe

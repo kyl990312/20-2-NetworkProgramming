@@ -1,0 +1,8 @@
+﻿  7-1_UDPServer.cpp
+E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_7-1_UDPServer\7-1_UDPServer.cpp(73,32): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  코드를 생성하고 있습니다.
+  1 of 6 functions (16.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  Net_7-1_UDPServer.vcxproj -> E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Release\Net_7-1_UDPServer.exe

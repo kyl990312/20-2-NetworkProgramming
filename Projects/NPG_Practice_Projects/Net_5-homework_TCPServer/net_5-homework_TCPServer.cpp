@@ -6,12 +6,6 @@
 #define SERVERPORT 9000
 #define BUFSIZE 512
 
-// cd E:\Git\20-2-NetworkProgramming\Projects\release_5\client
-// Net_5-homework_TCPClient.exe test_client.txt
-// Net_5-homework_TCPClient.exe suri.jpg
-// Net_5-homework_TCPClient.exe katana_dance.mp4
-// cd E:\Git\NGP\20-2-NetworkProgramming\Projects
-
 // 소켓 함수 오류 출력 후 종료
 void err_quit(char* msg) {
 	LPVOID lpMsgBuf;
@@ -37,7 +31,8 @@ void err_display(char* msg) {
 }
 
 // 사용자 정의 데이터 수신 함수
-// recv()는 len으로 지정한 크기보다 적은 데이터가 응용 프로그램 버퍼에 복사될 수 있다.
+// TCP의 경우 데이터 경계를 구분하지 않기 때문에 대이터가 나뉘어 이동할 수 있다.
+// 따라서 수신 버퍼에 해당 데이터가 전부 저장되지 않을 수 있기 때문에 
 // 자신이 받을 데이터의 크기를 미리 알고 있다면 그만큼 받을 때까지 recv()를 계속 호출해야함
 int recvn(SOCKET s, char* buf, int len, int flags) {
 	int received;
@@ -45,6 +40,9 @@ int recvn(SOCKET s, char* buf, int len, int flags) {
 	int left = len;
 
 	while (left > 0) {
+		// recv() : 운영체제의 수신 버퍼에 도착한 데이터를 으용프로그램 버퍼에 복사
+		// int recv(SOCKET s, char* buf, itn len, int flags)
+
 		received = recv(s, ptr, left, flags);
 		if (received == SOCKET_ERROR)
 			// 실패시 SOCKET_ERROR을 리턴한다.
@@ -153,7 +151,12 @@ int main(int argc, char* argv[])
 	SOCKET listen_sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (listen_sock == INVALID_SOCKET) err_quit((char*)"socket()");
 
-	// bind()
+	// bind() : 소켓의 지역  IP 주소와 포트번호 결졍
+	/* int bind(
+		SOCKET s,						// 대기소켓 핸들값
+		const struct sockaddr *name,	// 소켓 주소
+		int namelen						// 소켓 주소 길이
+	) */
 	SOCKADDR_IN serveraddr;
 	ZeroMemory(&serveraddr, sizeof(serveraddr));		// 초기화
 	serveraddr.sin_family = AF_INET;					// 주소체계 지정
@@ -162,7 +165,12 @@ int main(int argc, char* argv[])
 	retval = bind(listen_sock, (SOCKADDR*)&serveraddr, sizeof(serveraddr));		// bind
 	if (retval == SOCKET_ERROR) err_quit((char*)"bind()");
 
-	// listen
+	// listen() : 소켓의 TCP 포트 상태를 LISTENING으로 변경
+	/* int listen(
+			SOCKET s,	
+			int backlog		// 클라이언트 갯수
+	)  클라이언트 접속 요청을 수용하기 위해 queue를 사용 */
+
 	retval = listen(listen_sock, SOMAXCONN);
 	if (retval == SOCKET_ERROR) err_quit((char*)"listen()");
 
@@ -176,7 +184,14 @@ int main(int argc, char* argv[])
 	char fileName[50];		// 파일 이름
 
 	while (1) {
-		// accept()
+		
+		// accept() : 접속한 클라이언트와 통신할 수 있도록 새로운 소켓을 생성해서 리턴
+		/* SOCKET accept(
+				SOCKET	s,				// 클라이언트 접속 수용 목적 대기소켓
+				struct sockaddr *addr,	// 주소를 잡으면 accept()가 port와 ipaddr 메모리에 할당
+				int *addrlen
+		)*/
+
 		addrlen = sizeof(clientaddr);
 		client_sock = accept(listen_sock, (SOCKADDR*)&clientaddr, &addrlen);
 		if (client_sock == INVALID_SOCKET) {

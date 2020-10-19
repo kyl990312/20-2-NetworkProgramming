@@ -3,7 +3,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-#define PRACTICE_NUMBER 2
+#define PRACTICE_NUMBER 4
 
 #if PRACTICE_NUMBER == 2
 #include <ws2tcpip.h>

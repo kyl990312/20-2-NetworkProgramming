@@ -3,10 +3,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-// test
-//E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Release
-// Net_5-homework_TCPClient.exe homeworkTest_5.txt
-
 #define SERVERIP "127.0.0.1"
 #define SERVERPORT 9000
 #define BUFSIZE 512
@@ -60,7 +56,13 @@ int main(int agrc, char* argv[])
 	SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (sock == INVALID_SOCKET) err_quit((char*)"socket()");
 
-	// connect()
+	// connect() : TCP 프로토콜 수준에서 서버와 논리적 연결 설정 ( bind & connect 함께 수행)
+	/* int connect(
+			SOCKET s,
+			const struct sockaddr *name,
+			int namelen
+	)*/
+
 	SOCKADDR_IN serveraddr;
 	ZeroMemory(&serveraddr, sizeof(serveraddr));
 	serveraddr.sin_family = AF_INET;
@@ -70,6 +72,9 @@ int main(int agrc, char* argv[])
 	if (retval == SOCKET_ERROR) err_quit((char*)"connect()");
 
 	int nameLen = strlen(argv[1]);
+
+	// send() : 응용 프로그램 데이터를 운영체제의 송신버처에 복사함
+	// int send(SOCKET s, const char* buf, int len, int flags)
 
 	// 파일 이름의 길이를 보낸다.
 	retval = send(sock, (char*)&nameLen, sizeof(int), 0);

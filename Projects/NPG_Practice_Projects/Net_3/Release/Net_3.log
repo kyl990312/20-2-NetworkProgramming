@@ -1,12 +1,16 @@
 ﻿  3-1.cpp
-E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(122,44): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(126,19): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(127,48): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(139,2): warning C4996: 'WSAStringToAddressA': Use WSAStringToAddressW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(148,2): warning C4996: 'WSAAddressToStringA': Use WSAAddressToStringW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-  코드를 생성하고 있습니다.
-  4 of 4 functions (100.0%) were compiled.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
-  코드를 생성했습니다.
-  Net_3.vcxproj -> E:\Git\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Release\Net_3.exe
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(122,44): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(126,19): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(127,48): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(139,2): warning C4996: 'WSAStringToAddressA': Use WSAStringToAddressW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-1.cpp(148,2): warning C4996: 'WSAAddressToStringA': Use WSAAddressToStringW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  3-2_IPAddr.cpp
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-2_IPAddr.cpp(30,44): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-2_IPAddr.cpp(42,19): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-2_IPAddr.cpp(43,50): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-2_IPAddr.cpp(72,2): warning C4996: 'WSAStringToAddressA': Use WSAStringToAddressW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-2_IPAddr.cpp(96,2): warning C4996: 'WSAAddressToStringA': Use WSAAddressToStringW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  3-3_IPandDomain.cpp
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Net_3\3-3_IPandDomain.cpp(1,30): warning C4081: 'newline'이(가) 있어야 하는데 ';'이(가) 있습니다.
+3-2_IPAddr.obj : error LNK2005: _main이(가) 3-1.obj에 이미 정의되어 있습니다.
+E:\Git\NGP\20-2-NetworkProgramming\Projects\NPG_Practice_Projects\Release\Net_3.exe : fatal error LNK1169: 여러 번 정의된 기호가 있습니다.

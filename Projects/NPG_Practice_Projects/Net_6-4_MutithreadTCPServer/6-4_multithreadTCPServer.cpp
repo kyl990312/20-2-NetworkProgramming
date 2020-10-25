@@ -41,6 +41,20 @@ DWORD WINAPI ProcessClient(LPVOID arg) {
 	
 	// 努扼捞攫飘 沥焊 掘扁
 	addrlen = sizeof(clientaddr);
+	// 家南苞 楷包等 林家沥焊 掘扁
+	// getpeername () : Local IP / Port 府畔
+	/* int getpeername(
+		SOCKET s,
+		struct sockaddr *name,		家南林家 备炼眉
+		int *namelen				家南林家 备炼眉 农扁
+	)*/
+
+	// getsockname() : Local IP / Port 府畔
+	/*int getsockname(
+		SOCKET s,
+		struct sockaddr *name,		家南林家 备炼眉
+		int *namelen				家南林家 备炼眉 农扁
+	)*/
 	getpeername(client_sock, (SOCKADDR*)&clientaddr, &addrlen);
 	
 	while (1) {

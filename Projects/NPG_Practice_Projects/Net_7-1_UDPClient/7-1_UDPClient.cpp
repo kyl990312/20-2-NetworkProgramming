@@ -72,6 +72,17 @@ int main(int argc, char* argv[])
 			break;
 
 		// 데이터 보내기
+		// sendto() : 응용프로그램 데이터를 운영체제의 커널영역에 복사
+		/*
+		int sendto(
+			SOCKET s,	
+			const char *buf,	애플리케이션 주소
+			int len,		데이터 크기
+			int flags,
+			const struct sockaddr *to, 목적지 주소 소켓 구조체
+			int tolen		소켓주소크기
+		*/
+
 		retval = sendto(sock, buf, strlen(buf), 0, (SOCKADDR*)&serveraddr, sizeof(serveraddr));
 		if (retval == SOCKET_ERROR) {
 			err_display((char*)"sendto()");
@@ -81,6 +92,16 @@ int main(int argc, char* argv[])
 
 		// 데이터 받기
 		addrlen = sizeof(peeraddr);
+		// recvfrom(): 운영체제의 수신 버퍼에 도착한 데이터를 응용 프로그램 버퍼에 복사
+		/*
+		int recvform(
+			SOCKET s,	
+			const char *buf,	애플리케이션 주소
+			int len,		데이터 크기
+			int flags,
+			const struct sockaddr *from, 주소 소켓 구조체
+			int fromlen		소켓주소크기
+		*/
 		retval = recvfrom(sock, buf, BUFSIZE, 0, (SOCKADDR*)&peeraddr, &addrlen);
 		if (retval == SOCKET_ERROR) {
 			err_display((char*)"recvfrom()");

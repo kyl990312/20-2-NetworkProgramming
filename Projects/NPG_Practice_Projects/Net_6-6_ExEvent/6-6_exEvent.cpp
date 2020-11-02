@@ -20,7 +20,8 @@ DWORD WINAPI WriteThread(LPVOID arg) {
 			buf[i] = k;
 
 		// 읽기 완료 알림
-		SetEvent(hWriteEvent);
+		SetEvent(hWriteEvent);			// 비신호->신호
+		//ResetEvent(HANDLE hEvent) : 신호 -> 비신호
 	}
 
 	return 0;
@@ -50,6 +51,15 @@ DWORD WINAPI ReadThread(LPVOID arg) {
 
 int main(int argc, char* argv[]) {
 	// 자동 리셋 이벤트 두 개 생성(각각 비신호, 신호상태)
+	/*
+		HANDLE CreateEvent(
+			LPSECURITY_ATTRIBUTES lbEventAttribute,			 NULL
+			BOOL bManualReset,			수동리셋 : TRUE , 자동리셋: FALSE
+			BOOL binitialState,			처음 시작 신호: 비신호(FALSE),신호(TRUE)
+			LPCTSTR lpName				이벤트에 부여하는 이름
+		)
+	*/
+
 	hWriteEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
 	if (hWriteEvent == NULL) return 1;
 	hReadEvent = CreateEvent(NULL, FALSE, TRUE, NULL);	

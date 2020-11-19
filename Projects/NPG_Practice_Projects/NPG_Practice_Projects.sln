@@ -57,6 +57,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Net_5-3_TCPClient_CloseOnTr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Net_6-5_ExCriticalSection", "Net_6-5_ExCriticalSection\Net_6-5_ExCriticalSection.vcxproj", "{24B7D66D-6DA5-436C-AF77-4125CE33D5CD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Net_9-2_GUITCPServer", "Project1\Project1.vcxproj", "{4AFEEB72-7A0B-4200-AEF9-656F4A42E83B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -281,6 +283,14 @@ Global
 		{24B7D66D-6DA5-436C-AF77-4125CE33D5CD}.Release|x64.Build.0 = Release|x64
 		{24B7D66D-6DA5-436C-AF77-4125CE33D5CD}.Release|x86.ActiveCfg = Release|Win32
 		{24B7D66D-6DA5-436C-AF77-4125CE33D5CD}.Release|x86.Build.0 = Release|Win32
+		{4AFEEB72-7A0B-4200-AEF9-656F4A42E83B}.Debug|x64.ActiveCfg = Debug|x64
+		{4AFEEB72-7A0B-4200-AEF9-656F4A42E83B}.Debug|x64.Build.0 = Debug|x64
+		{4AFEEB72-7A0B-4200-AEF9-656F4A42E83B}.Debug|x86.ActiveCfg = Debug|Win32
+		{4AFEEB72-7A0B-4200-AEF9-656F4A42E83B}.Debug|x86.Build.0 = Debug|Win32
+		{4AFEEB72-7A0B-4200-AEF9-656F4A42E83B}.Release|x64.ActiveCfg = Release|x64
+		{4AFEEB72-7A0B-4200-AEF9-656F4A42E83B}.Release|x64.Build.0 = Release|x64
+		{4AFEEB72-7A0B-4200-AEF9-656F4A42E83B}.Release|x86.ActiveCfg = Release|Win32
+		{4AFEEB72-7A0B-4200-AEF9-656F4A42E83B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
